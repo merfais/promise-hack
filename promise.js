@@ -1,6 +1,6 @@
 /* eslint-disable no-extend-native */
 // 静态变量 停止信号
-const STOP_SIGNAL = {};
+const STOP_SIGNAL = {}
 
 // 为Promise注入静态方法 stop
 // 实质是返回一下携带停止信号的 Promise.resolve
@@ -12,9 +12,9 @@ Object.defineProperty(Promise, 'stop', {
     return Promise.resolve({
       signal: STOP_SIGNAL,
       value: data,
-    });
+    })
   }
-});
+})
 
 // 为Promise注入实例方法 next
 // 实质是调用then方法，检测是否包含停止信号，决定是否执行onResolved
@@ -37,24 +37,24 @@ Promise.prototype.next = function(onResolved, onRejected) {
       }))
     }
     if (data && data.signal && data.signal === STOP_SIGNAL) {
-      return data;
+      return data
     } else {
-      return onResolved(data);
+      return onResolved(data)
     }
-  }, onRejected);
-};
+  }, onRejected)
+}
 
 // 为Promise注入实例方法 whenStop
 // 实质是调用then方法，检测是否包含停止信号，决定是否执行onResolved
 Promise.prototype.whenStop = function(onResolved, onRejected) {
   return this.then(data => {
     if (data && data.signal && data.signal === STOP_SIGNAL) {
-      return onResolved(data.value);
+      return onResolved(data.value)
     } else {
-      return data;
+      return data
     }
-  }, onRejected);
-};
+  }, onRejected)
+}
 
 /* eslint-enable no-extend-native */
 
