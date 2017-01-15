@@ -1,5 +1,5 @@
 # promise-hack
-**从停掉Promise chain说起**
+##从停掉Promise chain说起
 在中大型的项目中，我经常会遇到比较长的Promise chain，尤其是API调用的时候，
 数据要经过层层的转换和计算，才呈现到页面中，这时候如果API调用出错，
 或者数据计算中出现未考虑到错误，代码就会在某段Promise chain中抛出异常，
@@ -24,7 +24,7 @@ Promise机制决定，可简单理解每段Promise chain都是回调），
 这同样适用于函数之间的调用，每一个函数模块关心的仅仅是自己的逻辑处理，
 并永远只给出正确的结果，因为拿到的数据永远也是正确的。此时，能停止Promise chain就显得尤为重要了。
 
-**逻辑实现**
+##逻辑实现
 受到[xieranmaya](https://github.com/xieranmaya/blog/issues/5#issuecomment-271871102)启发，
 我写了一些对原生Promise的侵入性比较强的代码，仅做为一个简单的示例
 
